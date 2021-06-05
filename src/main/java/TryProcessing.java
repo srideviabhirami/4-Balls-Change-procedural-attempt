@@ -1,15 +1,16 @@
 import processing.core.PApplet;
-public class TryProcessing extends PApplet{
+
+public class TryProcessing extends PApplet {
 
     public static final int WIDTH = 600;
     public static final int HEIGHT = 480;
     public static final int DIAMETER = 10;
-    int circle1Rate = 0;
-    int circle2Rate = 0;
-    int circle3Rate = 0;
-    int circle4Rate = 0;
+    public static final int NUMBEROFBALLS = 4;
+    int[] xPositions = new int[NUMBEROFBALLS];
+    int[] heights = new int[NUMBEROFBALLS];
+
     public static void main(String[] args) {
-        PApplet.main("TryProcessing",args);
+        PApplet.main("TryProcessing", args);
     }
 
     @Override
@@ -20,35 +21,30 @@ public class TryProcessing extends PApplet{
 
     @Override
     public void setup() {
+        initialiseHeights();
+    }
+
+    private void initialiseHeights() {
+        for (int i = 1; i <= NUMBEROFBALLS; i++) {
+            heights[i - 1] = i * HEIGHT / 5;
+        }
     }
 
     @Override
     public void draw() {
-        drawCircle1();
-        drawCircle2();
-        drawCircle3();
-        drawCircle4();
-
+        moveBalls();
+        incrementXPositions();
     }
 
-    private void drawCircle1() {
-        ellipse(circle1Rate, HEIGHT/5, DIAMETER, DIAMETER);
-        circle1Rate++;
+    public void incrementXPositions() {
+        for (int i = 1; i <= NUMBEROFBALLS; i++) {
+            xPositions[i - 1] += i;
+        }
     }
 
-    private void drawCircle2() {
-        ellipse(circle2Rate, 2*HEIGHT/5, DIAMETER, DIAMETER);
-        circle2Rate+=2;
+    private void moveBalls() {
+        for (int i = 0; i < NUMBEROFBALLS; i++) {
+            ellipse(xPositions[i], heights[i], DIAMETER, DIAMETER);
+        }
     }
-
-    private void drawCircle3() {
-        ellipse(circle3Rate, 3 * HEIGHT/5, DIAMETER, DIAMETER);
-        circle3Rate+=3;
-    }
-
-    private void drawCircle4() {
-        ellipse(circle4Rate, 4*HEIGHT/5, DIAMETER, DIAMETER);
-        circle4Rate+=4;    }
-
-
 }
